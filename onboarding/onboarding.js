@@ -55,7 +55,9 @@ document.querySelectorAll('[data-next]').forEach((btn) => {
     if (currentStep === 3) {
       const text = document.getElementById('keywords-input').value;
       settings.focusKeywords = text.split(/[,\n]/).map((s) => s.trim()).filter(Boolean);
-      settings.focusDetectionMode = document.querySelector('input[name="detection"]:checked')?.value || 'keywords';
+      const negText = document.getElementById('negative-keywords-input').value;
+      settings.negativeKeywords = negText.split(/[,\n]/).map((s) => s.trim()).filter(Boolean);
+      settings.focusDetectionMode = document.querySelector('input[name="detection"]:checked')?.value || 'all_events';
       await saveSettings(settings);
     } else if (currentStep === 4) {
       const text = document.getElementById('blocklist-input').value;
@@ -108,12 +110,13 @@ document.getElementById('connect-calendar').addEventListener('click', async () =
   }
 });
 
-document.querySelector('input[name="detection"]:checked')?.addEventListener('change', () => {});
 document.querySelectorAll('input[name="detection"]').forEach((r) => {
   r.addEventListener('change', async () => {
     const settings = await getSettings();
-    settings.focusDetectionMode = document.querySelector('input[name="detection"]:checked').value;
+    const mode = document.querySelector('input[name="detection"]:checked').value;
+    settings.focusDetectionMode = mode;
     await saveSettings(settings);
+    document.getElementById('keywords-editor').classList.toggle('hidden', !['keywords', 'both'].includes(mode));
   });
 });
 
@@ -121,6 +124,13 @@ document.getElementById('keywords-input').addEventListener('blur', async () => {
   const settings = await getSettings();
   const text = document.getElementById('keywords-input').value;
   settings.focusKeywords = text.split(/[,\n]/).map((s) => s.trim()).filter(Boolean);
+  await saveSettings(settings);
+});
+
+document.getElementById('negative-keywords-input').addEventListener('blur', async () => {
+  const settings = await getSettings();
+  const text = document.getElementById('negative-keywords-input').value;
+  settings.negativeKeywords = text.split(/[,\n]/).map((s) => s.trim()).filter(Boolean);
   await saveSettings(settings);
 });
 
@@ -162,10 +172,12 @@ showStep(1);
   const settings = await getSettings();
   if (settings.connectedAccount && settings.selectedCalendars?.length > 0) {
     document.getElementById('keywords-input').value = (settings.focusKeywords || []).join(', ');
+    document.getElementById('negative-keywords-input').value = (settings.negativeKeywords || []).join(', ');
     document.getElementById('blocklist-input').value = (settings.blocklist || []).join('\n');
     document.getElementById('youtube-toggle').checked = settings.youtubeBlocked;
     document.getElementById('discord-toggle').checked = settings.discordBlocked;
-    const detection = document.querySelector(`input[name="detection"][value="${settings.focusDetectionMode}"]`);
+    const detection = document.querySelector(`input[name="detection"][value="${settings.focusDetectionMode || 'all_events'}"]`);
     if (detection) detection.checked = true;
+    document.getElementById('keywords-editor').classList.toggle('hidden', !['keywords', 'both'].includes(settings.focusDetectionMode));
   }
 })();

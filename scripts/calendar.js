@@ -73,28 +73,62 @@ export async function fetchEvents(token, calendarIds, timeMin, timeMax) {
   return allEvents;
 }
 
+/**
+ * Check if event title matches any negative keyword (excludes from focus)
+ */
+function matchesNegativeKeyword(title, negativeKeywords) {
+  if (!negativeKeywords?.length) return false;
+  const neg = negativeKeywords.map((k) => k.toLowerCase().trim()).filter(Boolean);
+  return neg.some((kw) => title.includes(kw));
+}
+
+/**
+ * Check if event title matches any focus keyword
+ */
+function matchesFocusKeyword(title, focusKeywords) {
+  if (!focusKeywords?.length) return false;
+  const kw = focusKeywords.map((k) => k.toLowerCase().trim()).filter(Boolean);
+  return kw.some((k) => title.includes(k));
+}
+
 export function isFocusEvent(event, settings) {
-  const { focusKeywords, focusCalendarIds, focusDetectionMode } = settings;
+  const {
+    focusKeywords,
+    negativeKeywords,
+    focusCalendarIds,
+    focusDetectionMode,
+    selectedCalendars,
+  } = settings;
+
   const title = (event.summary || '').toLowerCase();
-  
-  // All-day events: skip by default
+
+  // All-day events: skip by default (avoid blocking all day)
   if (event.isAllDay) return false;
-  
-  // Check focus calendar
+
+  // Negative keywords always exclude - even if event would otherwise qualify
+  if (matchesNegativeKeyword(title, negativeKeywords)) return false;
+
+  // Focus calendar: any event in a marked "focus" calendar
   if (focusDetectionMode === 'focus_calendar' || focusDetectionMode === 'both') {
     if (focusCalendarIds.includes(event.calendarId)) {
       return true;
     }
   }
-  
-  // Check keywords
-  if (focusDetectionMode === 'keywords' || focusDetectionMode === 'both') {
-    const keywords = focusKeywords.map((k) => k.toLowerCase().trim()).filter(Boolean);
-    if (keywords.some((kw) => title.includes(kw))) {
+
+  // All events: every event from selected calendars is focus (minus negatives)
+  if (focusDetectionMode === 'all_events') {
+    if (selectedCalendars?.includes(event.calendarId)) {
       return true;
     }
   }
-  
+
+  // Keywords: event title contains a focus keyword
+  if (focusDetectionMode === 'keywords' || focusDetectionMode === 'both') {
+    if (matchesFocusKeyword(title, focusKeywords)) {
+      return true;
+    }
+  }
+
   return false;
 }
 

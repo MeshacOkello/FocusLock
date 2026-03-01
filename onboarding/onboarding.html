@@ -60,24 +60,33 @@
       </div>
       <div class="options">
         <label class="option-card">
-          <input type="radio" name="detection" value="keywords" checked>
-          <span class="option-title">Keywords in event titles</span>
-          <span class="option-desc">e.g. Study, Class, Lecture</span>
+          <input type="radio" name="detection" value="all_events" checked>
+          <span class="option-title">All events</span>
+          <span class="option-desc">Block during every calendar event. Exclude lunch, breaks, etc. below.</span>
+        </label>
+        <label class="option-card">
+          <input type="radio" name="detection" value="keywords">
+          <span class="option-title">Keywords in titles</span>
+          <span class="option-desc">Only events with words like Study, CS 101, Lecture</span>
         </label>
         <label class="option-card">
           <input type="radio" name="detection" value="focus_calendar">
-          <span class="option-title">Dedicated Focus calendar</span>
-          <span class="option-desc">Any event in a calendar you mark as Focus</span>
+          <span class="option-title">Focus calendar only</span>
+          <span class="option-desc">Only events in a calendar you mark as Focus</span>
         </label>
         <label class="option-card">
           <input type="radio" name="detection" value="both">
-          <span class="option-title">Both</span>
-          <span class="option-desc">Keywords or focus calendar</span>
+          <span class="option-title">Keywords or Focus calendar</span>
+          <span class="option-desc">Either keywords match or event is in Focus calendar</span>
         </label>
       </div>
-      <div id="keywords-editor" class="keywords-editor">
-        <label>Keywords (comma-separated)</label>
-        <textarea id="keywords-input" rows="3">study, studying, lockin, lock-in, class, lecture, lab, precept, discussion, office hours, revision, midterm, finals</textarea>
+      <div id="keywords-editor" class="keywords-editor hidden">
+        <label>Focus keywords (comma-separated)</label>
+        <textarea id="keywords-input" rows="3">study, studying, lockin, lock-in, class, lecture, lab, precept, discussion, office hours, revision, midterm, finals, seminar, tutorial, cs , math, phys</textarea>
+      </div>
+      <div class="keywords-editor">
+        <label>Exclude keywords (events with these = never focus)</label>
+        <textarea id="negative-keywords-input" rows="2">lunch, break, gym, dinner, party, social, free, vacation</textarea>
       </div>
       <div class="step-actions">
         <button class="btn-secondary" data-next="2">Back</button>

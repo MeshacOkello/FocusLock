@@ -5,11 +5,12 @@ async function load() {
   const settings = await getSettings();
 
   document.getElementById('keywords').value = (settings.focusKeywords || []).join(', ');
+  document.getElementById('negative-keywords').value = (settings.negativeKeywords || []).join(', ');
   document.getElementById('blocklist').value = (settings.blocklist || []).join('\n');
   document.getElementById('whitelist').value = (settings.whitelist || []).join('\n');
   document.getElementById('youtube').checked = settings.youtubeBlocked;
   document.getElementById('discord').checked = settings.discordBlocked;
-  document.getElementById('detection-mode').value = settings.focusDetectionMode || 'keywords';
+  document.getElementById('detection-mode').value = settings.focusDetectionMode || 'all_events';
   document.getElementById('max-overrides').value = settings.maxOverridesPerSession ?? 2;
   document.getElementById('max-override-duration').value = settings.maxOverrideDuration ?? 10;
   document.getElementById('require-reason').checked = settings.requireOverrideReason !== false;
@@ -42,14 +43,16 @@ async function load() {
           await saveSettings(s);
         });
       });
-      updateFocusCalendarSection(calendars, settings);
+      updateDetectionSections(calendars, settings);
     } catch {
       document.getElementById('calendar-status-text').textContent = 'Connection expired';
       document.getElementById('calendar-status-text').classList.remove('connected');
+      updateDetectionSections([], settings);
     }
   } else {
     document.getElementById('calendar-status-text').classList.remove('connected');
   }
+  updateDetectionSections([], settings);
 }
 
 document.getElementById('connect-btn').addEventListener('click', async () => {
@@ -69,6 +72,12 @@ document.getElementById('connect-btn').addEventListener('click', async () => {
 document.getElementById('keywords').addEventListener('blur', async () => {
   const s = await getSettings();
   s.focusKeywords = document.getElementById('keywords').value.split(/[,\n]/).map((x) => x.trim()).filter(Boolean);
+  await saveSettings(s);
+});
+
+document.getElementById('negative-keywords').addEventListener('blur', async () => {
+  const s = await getSettings();
+  s.negativeKeywords = document.getElementById('negative-keywords').value.split(/[,\n]/).map((x) => x.trim()).filter(Boolean);
   await saveSettings(s);
 });
 
@@ -158,10 +167,14 @@ document.getElementById('clear-btn').addEventListener('click', async () => {
 
 document.getElementById('onboarding-link').href = chrome.runtime.getURL('onboarding/onboarding.html');
 
-function updateFocusCalendarSection(calendars, settings) {
+function updateDetectionSections(calendars, settings) {
+  const mode = document.getElementById('detection-mode').value;
+  const keywordsSection = document.getElementById('keywords-section');
   const focusSection = document.getElementById('focus-calendar-section');
   const focusCheckboxes = document.getElementById('focus-calendar-checkboxes');
-  const mode = document.getElementById('detection-mode').value;
+
+  keywordsSection.classList.toggle('hidden', mode === 'all_events' || mode === 'focus_calendar');
+
   if ((mode === 'focus_calendar' || mode === 'both') && calendars?.length > 0) {
     focusSection.classList.remove('hidden');
     focusCheckboxes.innerHTML = calendars.map((cal) => `
@@ -188,8 +201,10 @@ document.getElementById('detection-mode').addEventListener('change', async () =>
   try {
     const token = await getAuthTokenInteractive();
     const calendars = await fetchCalendars(token);
-    updateFocusCalendarSection(calendars, s);
-  } catch (_) {}
+    updateDetectionSections(calendars, s);
+  } catch (_) {
+    updateDetectionSections([], s);
+  }
 });
 
 load();

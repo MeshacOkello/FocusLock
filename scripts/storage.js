@@ -14,10 +14,16 @@ const DEFAULT_SETTINGS = {
   // Calendar
   connectedAccount: null,
   selectedCalendars: [],
-  focusDetectionMode: 'keywords', // 'keywords' | 'focus_calendar' | 'both'
+  focusDetectionMode: 'all_events', // 'all_events' | 'keywords' | 'focus_calendar' | 'both'
   focusKeywords: [
     'study', 'studying', 'lockin', 'lock-in', 'class', 'lecture', 'lab',
-    'precept', 'discussion', 'office hours', 'revision', 'midterm', 'finals'
+    'precept', 'discussion', 'office hours', 'revision', 'midterm', 'finals',
+    'seminar', 'tutorial', 'recitation', 'section', 'exam', 'quiz', 'review',
+    'cs', 'math', 'phys', 'chem', 'bio', 'eng', 'ece', 'econ'
+  ],
+  negativeKeywords: [
+    'lunch', 'break', 'gym', 'dinner', 'party', 'social', 'free',
+    'out of office', 'vacation', 'busy', 'personal', 'errands'
   ],
   focusCalendarIds: [],
   
