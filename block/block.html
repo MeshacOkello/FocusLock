@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusLock — Site Blocked</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="block.css">
+</head>
+<body>
+  <main class="block-page">
+    <div class="block-content">
+      <div class="block-header">
+        <div class="block-indicator"></div>
+        <h1>Site blocked</h1>
+      </div>
+      <p class="reason">This site is blocked during your scheduled focus time.</p>
+
+      <div id="event-card" class="event-card">
+        <div class="event-label">Active focus</div>
+        <div id="event-name" class="event-name">—</div>
+        <div class="event-end">
+          Ends at <span id="end-time">—</span>
+          <span class="countdown">(<span id="countdown">—</span>)</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="back-btn" class="btn-primary">Back to previous page</button>
+        <button id="override-btn" class="btn-secondary">Request override</button>
+      </div>
+
+      <footer class="block-footer">
+        Manage blocked sites in <a id="settings-link" href="#">Settings</a>
+      </footer>
+    </div>
+  </main>
+  <script src="block.js" type="module"></script>
+</body>
+</html>

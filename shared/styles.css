@@ -1,0 +1,127 @@
+/* FocusLock - Design system */
+:root {
+  --bg-primary: #09090b;
+  --bg-secondary: #18181b;
+  --bg-elevated: #27272a;
+  --bg-hover: #3f3f46;
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --accent: #0d9488;
+  --accent-hover: #0f766e;
+  --accent-muted: rgba(13, 148, 136, 0.15);
+  --success: #10b981;
+  --success-muted: rgba(16, 185, 129, 0.15);
+  --warning: #f59e0b;
+  --warning-muted: rgba(245, 158, 11, 0.15);
+  --error: #ef4444;
+  --error-muted: rgba(239, 68, 68, 0.15);
+  --border: #27272a;
+  --border-subtle: #3f3f46;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 14px;
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-subtle);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+}
+
+input, select, textarea {
+  font-family: inherit;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  padding: 10px 14px;
+  font-size: 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-muted);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  flex-shrink: 0;
+}
+
+.status-dot.warning {
+  background: var(--warning);
+}
+
+.status-dot.muted {
+  background: var(--text-muted);
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusLock — Stats</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="stats.css">
+</head>
+<body>
+  <div class="stats-page">
+    <header class="stats-header">
+      <div class="header-brand">
+        <div class="logo-mark"></div>
+        <h1>FocusLock</h1>
+      </div>
+      <a href="#" id="settings-link" class="header-link">Settings</a>
+    </header>
+
+    <main class="stats-main">
+      <section class="stats-section">
+        <h2>Today</h2>
+        <div class="stat-cards">
+          <div class="stat-card">
+            <span class="stat-value" id="today-minutes">0</span>
+            <span class="stat-label">minutes focused</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="today-overrides">0</span>
+            <span class="stat-label">overrides used</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-section">
+        <h2>This week</h2>
+        <div class="stat-cards">
+          <div class="stat-card">
+            <span class="stat-value" id="week-minutes">0</span>
+            <span class="stat-label">total minutes</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="week-daily">0</span>
+            <span class="stat-label">avg per day</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-section">
+        <h2>Focus streak</h2>
+        <div class="streak-card">
+          <span class="streak-value" id="streak-days">0</span>
+          <span class="streak-label">consecutive days with focus sessions</span>
+        </div>
+      </section>
+
+      <section class="stats-section">
+        <h2>Top blocked sites</h2>
+        <div id="top-sites" class="top-sites">
+          <p class="empty">No block attempts yet</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="stats.js" type="module"></script>
+</body>
+</html>

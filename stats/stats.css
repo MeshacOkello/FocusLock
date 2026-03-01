@@ -1,0 +1,145 @@
+.stats-page {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 40px 28px;
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.stats-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  background: var(--accent);
+  border-radius: var(--radius-sm);
+}
+
+.stats-header h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.header-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.header-link:hover {
+  text-decoration: underline;
+}
+
+.stats-section {
+  margin-bottom: 28px;
+}
+
+.stats-section h2 {
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.stat-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.streak-card {
+  background: var(--accent-muted);
+  border: 1px solid rgba(13, 148, 136, 0.25);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+}
+
+.streak-value {
+  display: block;
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.streak-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.top-sites {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.top-sites .site-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.top-sites .site-row:last-child {
+  border-bottom: none;
+}
+
+.top-sites .site-domain {
+  font-weight: 500;
+}
+
+.top-sites .site-count {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.top-sites .empty {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
+  padding: 24px 0;
+  text-align: center;
+}

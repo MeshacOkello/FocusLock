@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusLock — Setup</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="onboarding.css">
+</head>
+<body>
+  <main class="onboarding">
+    <div class="onboarding-progress">
+      <div class="progress-step" data-step="1"></div>
+      <div class="progress-line"></div>
+      <div class="progress-step" data-step="2"></div>
+      <div class="progress-line"></div>
+      <div class="progress-step" data-step="3"></div>
+      <div class="progress-line"></div>
+      <div class="progress-step" data-step="4"></div>
+      <div class="progress-line"></div>
+      <div class="progress-step" data-step="5"></div>
+    </div>
+
+    <div id="step-1" class="step">
+      <div class="step-header">
+        <h1>Welcome to FocusLock</h1>
+        <p>Block distracting sites during your scheduled focus times. Your calendar drives everything—no need to remember to turn anything on.</p>
+      </div>
+      <ul class="features">
+        <li>Read-only calendar access. We only see event times and titles.</li>
+        <li>Automatic blocking during classes and study blocks.</li>
+        <li>Override available when needed, with a required reason.</li>
+      </ul>
+      <button class="btn-primary btn-full" data-next="2">Connect Google Calendar</button>
+    </div>
+
+    <div id="step-2" class="step hidden">
+      <div class="step-header">
+        <h1>Connect your calendar</h1>
+        <p>Read-only access to detect your focus events.</p>
+      </div>
+      <div id="calendar-status" class="calendar-status">
+        <button id="connect-calendar" class="btn-primary btn-full">Sign in with Google</button>
+      </div>
+      <div id="calendar-list" class="calendar-list hidden">
+        <p class="label">Select calendars to check for focus events</p>
+        <div id="calendar-checkboxes"></div>
+      </div>
+      <div class="step-actions">
+        <button class="btn-secondary" data-next="1">Back</button>
+        <button id="next-from-calendar" class="btn-primary hidden" data-next="3">Continue</button>
+      </div>
+    </div>
+
+    <div id="step-3" class="step hidden">
+      <div class="step-header">
+        <h1>Focus detection</h1>
+        <p>How should we identify focus times?</p>
+      </div>
+      <div class="options">
+        <label class="option-card">
+          <input type="radio" name="detection" value="keywords" checked>
+          <span class="option-title">Keywords in event titles</span>
+          <span class="option-desc">e.g. Study, Class, Lecture</span>
+        </label>
+        <label class="option-card">
+          <input type="radio" name="detection" value="focus_calendar">
+          <span class="option-title">Dedicated Focus calendar</span>
+          <span class="option-desc">Any event in a calendar you mark as Focus</span>
+        </label>
+        <label class="option-card">
+          <input type="radio" name="detection" value="both">
+          <span class="option-title">Both</span>
+          <span class="option-desc">Keywords or focus calendar</span>
+        </label>
+      </div>
+      <div id="keywords-editor" class="keywords-editor">
+        <label>Keywords (comma-separated)</label>
+        <textarea id="keywords-input" rows="3">study, studying, lockin, lock-in, class, lecture, lab, precept, discussion, office hours, revision, midterm, finals</textarea>
+      </div>
+      <div class="step-actions">
+        <button class="btn-secondary" data-next="2">Back</button>
+        <button class="btn-primary" data-next="4">Continue</button>
+      </div>
+    </div>
+
+    <div id="step-4" class="step hidden">
+      <div class="step-header">
+        <h1>Blocked sites</h1>
+        <p>These sites will be blocked during focus times. You can change this anytime in Settings.</p>
+      </div>
+      <div class="blocklist-editor">
+        <textarea id="blocklist-input" rows="6">x.com
+twitter.com
+instagram.com
+tiktok.com
+reddit.com
+facebook.com</textarea>
+        <div class="toggles">
+          <label><input type="checkbox" id="youtube-toggle"> Block YouTube</label>
+          <label><input type="checkbox" id="discord-toggle"> Block Discord</label>
+        </div>
+      </div>
+      <div class="step-actions">
+        <button class="btn-secondary" data-next="3">Back</button>
+        <button class="btn-primary" data-next="5">Continue</button>
+      </div>
+    </div>
+
+    <div id="step-5" class="step hidden">
+      <div class="step-header">
+        <h1>You're all set</h1>
+        <p id="next-focus-text" class="next-focus-text">Next focus time: —</p>
+      </div>
+      <div class="finish-actions">
+        <button id="test-block" class="btn-secondary btn-full">Test block (60 seconds)</button>
+        <button id="finish-btn" class="btn-primary btn-full">Finish setup</button>
+      </div>
+    </div>
+  </main>
+  <script src="onboarding.js" type="module"></script>
+</body>
+</html>

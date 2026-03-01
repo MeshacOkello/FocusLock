@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusLock — Settings</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <div class="settings-page">
+    <header class="settings-header">
+      <div class="header-brand">
+        <div class="logo-mark"></div>
+        <h1>FocusLock</h1>
+      </div>
+      <a href="#" id="onboarding-link" class="header-link">Setup guide</a>
+    </header>
+
+    <main class="settings-main">
+      <section class="section">
+        <h2>Calendar</h2>
+        <div class="section-content">
+          <div id="calendar-status" class="status-row">
+            <span class="status-label">Status</span>
+            <span id="calendar-status-text" class="status-value">Not connected</span>
+            <button id="connect-btn" class="btn-primary">Connect Google Calendar</button>
+          </div>
+          <div id="calendar-list" class="calendar-list hidden"></div>
+          <div class="form-group">
+            <label>Focus detection</label>
+            <select id="detection-mode">
+              <option value="keywords">Keywords in event titles</option>
+              <option value="focus_calendar">Dedicated Focus calendar</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Keywords (comma-separated)</label>
+            <textarea id="keywords" rows="3"></textarea>
+          </div>
+          <div id="focus-calendar-section" class="form-group hidden">
+            <label>Focus calendars</label>
+            <div id="focus-calendar-checkboxes"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Blocking</h2>
+        <div class="section-content">
+          <div class="form-group">
+            <label>Blocked domains (one per line)</label>
+            <textarea id="blocklist" rows="8"></textarea>
+          </div>
+          <div class="toggles">
+            <label><input type="checkbox" id="youtube"> Block YouTube</label>
+            <label><input type="checkbox" id="discord"> Block Discord</label>
+          </div>
+          <div class="form-group">
+            <label>Whitelist (allowed during focus)</label>
+            <textarea id="whitelist" rows="2" placeholder="e.g. docs.google.com"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Overrides</h2>
+        <div class="section-content">
+          <div class="form-group">
+            <label>Max overrides per focus session</label>
+            <input type="number" id="max-overrides" min="1" max="10" value="2">
+          </div>
+          <div class="form-group">
+            <label>Max override duration (minutes)</label>
+            <input type="number" id="max-override-duration" min="1" max="30" value="10">
+          </div>
+          <label class="checkbox-row"><input type="checkbox" id="require-reason" checked> Require reason (min 10 chars)</label>
+          <label class="checkbox-row"><input type="checkbox" id="override-delay"> Delay override by 30 seconds</label>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Privacy</h2>
+        <div class="section-content">
+          <p class="privacy-note">Stored locally: settings, cached event times and titles, block attempts, overrides, and focus sessions. No data is sent to external servers.</p>
+          <div class="privacy-actions">
+            <button id="export-btn" class="btn-secondary">Export settings</button>
+            <button id="import-btn" class="btn-secondary">Import settings</button>
+            <button id="clear-btn" class="btn-secondary danger">Clear all data</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <input type="file" id="import-file" accept=".json" style="display:none">
+  <script src="settings.js" type="module"></script>
+</body>
+</html>

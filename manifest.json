@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "FocusLock",
+  "version": "1.0.0",
+  "description": "Calendar-synced study blocker. Automatically blocks distracting sites during your scheduled focus times.",
+  "permissions": [
+    "storage",
+    "alarms",
+    "identity",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "https://www.googleapis.com/calendar/v3/*",
+    "https://www.googleapis.com/auth/calendar.readonly"
+  ],
+  "oauth2": {
+    "client_id": "1056708251824-gfurpn0urj7ev7ut8671c8639pv425gm.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/calendar.readonly"]
+  },
+  "background": {
+    "service_worker": "scripts/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "FocusLock"
+  },
+  "options_ui": {
+    "page": "settings/settings.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

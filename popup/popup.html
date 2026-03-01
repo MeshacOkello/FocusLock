@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusLock</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup">
+    <header class="popup-header">
+      <div class="logo">
+        <div class="logo-mark"></div>
+        <h1>FocusLock</h1>
+      </div>
+      <div id="status-badge" class="status-badge status-off">Focus OFF</div>
+    </header>
+
+    <main class="popup-main">
+      <div id="focus-info" class="focus-info hidden">
+        <div class="focus-info-header">
+          <span class="status-dot"></span>
+          <span class="focus-label">Active focus</span>
+        </div>
+        <div class="event-name" id="event-name">—</div>
+        <div class="event-end">
+          Ends <span id="countdown">—</span>
+        </div>
+      </div>
+
+      <div id="next-focus" class="next-focus hidden">
+        <span class="label">Next focus:</span>
+        <span id="next-focus-text">—</span>
+      </div>
+
+      <div id="calendar-stale" class="calendar-stale hidden">
+        <span class="status-dot warning"></span>
+        Calendar sync delayed
+      </div>
+
+      <div class="actions">
+        <button id="primary-action" class="btn-primary btn-full">
+          Start Lock-in
+        </button>
+        <div class="action-row">
+          <button id="secondary-action" class="btn-ghost btn-full">Settings</button>
+          <button id="stats-btn" class="btn-ghost btn-full">Stats</button>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

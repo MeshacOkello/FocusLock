@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FocusLock — Request Override</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="override.css">
+</head>
+<body>
+  <main class="override-page">
+    <div class="override-content">
+      <h1>Request override</h1>
+      <p class="subtitle">A short break is okay. Choose how long you need.</p>
+
+      <form id="override-form">
+        <div class="form-group">
+          <label for="duration">Duration</label>
+          <select id="duration">
+            <option value="1">1 minute</option>
+            <option value="5" selected>5 minutes</option>
+            <option value="10">10 minutes</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="reason">Reason <span class="required">(required)</span></label>
+          <textarea id="reason" rows="3" placeholder="e.g. Quick check for an urgent message" minlength="10"></textarea>
+          <span id="reason-error" class="error hidden">Please enter at least 10 characters</span>
+        </div>
+
+        <div id="delay-info" class="delay-info hidden">
+          Override will start in <span id="delay-countdown">30</span> seconds
+        </div>
+
+        <div class="actions">
+          <button type="submit" id="submit-btn" class="btn-primary btn-full">
+            Grant override
+          </button>
+          <button type="button" id="cancel-btn" class="btn-secondary btn-full">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+  <script src="override.js" type="module"></script>
+</body>
+</html>

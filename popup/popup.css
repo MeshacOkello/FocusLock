@@ -1,0 +1,153 @@
+.popup {
+  width: 340px;
+  min-height: 260px;
+  padding: 24px;
+  background: var(--bg-primary);
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-mark {
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  border-radius: var(--radius-sm);
+  opacity: 0.9;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.status-on {
+  background: var(--success-muted);
+  color: var(--success);
+}
+
+.status-off {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+}
+
+.status-override {
+  background: var(--warning-muted);
+  color: var(--warning);
+}
+
+.focus-info {
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+}
+
+.focus-info-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.focus-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.focus-info .event-name {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.focus-info .event-end {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.next-focus {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  padding: 12px 0;
+}
+
+.next-focus .label {
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.calendar-stale {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--warning);
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  background: var(--warning-muted);
+  border-radius: var(--radius-sm);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.action-row {
+  display: flex;
+  gap: 8px;
+}
+
+.action-row .btn-full {
+  flex: 1;
+}
+
+.btn-full {
+  width: 100%;
+  justify-content: center;
+}
+
+.setup-prompt {
+  padding: 20px 0;
+}
+
+.setup-prompt p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.hidden {
+  display: none !important;
+}
