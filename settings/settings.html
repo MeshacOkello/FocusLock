@@ -15,7 +15,10 @@
         <div class="logo-mark"></div>
         <h1>FocusLock</h1>
       </div>
-      <a href="#" id="onboarding-link" class="header-link">Setup guide</a>
+      <div class="header-links">
+        <a href="#" id="verify-link" class="header-link">Review focus events</a>
+        <a href="#" id="onboarding-link" class="header-link">Setup guide</a>
+      </div>
     </header>
 
     <main class="settings-main">
@@ -43,7 +46,8 @@
           </div>
           <div class="form-group">
             <label>Exclude keywords (events with these = never focus)</label>
-            <textarea id="negative-keywords" rows="2" placeholder="lunch, break, gym, dinner..."></textarea>
+            <textarea id="negative-keywords" rows="6" placeholder="lunch, break, gym, dinner..."></textarea>
+            <p class="field-hint">Events marked "Show as available" in Google Calendar are also excluded automatically.</p>
           </div>
           <div id="focus-calendar-section" class="form-group hidden">
             <label>Focus calendars</label>

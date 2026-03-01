@@ -22,10 +22,25 @@ const DEFAULT_SETTINGS = {
     'cs', 'math', 'phys', 'chem', 'bio', 'eng', 'ece', 'econ'
   ],
   negativeKeywords: [
-    'lunch', 'break', 'gym', 'dinner', 'party', 'social', 'free',
-    'out of office', 'vacation', 'busy', 'personal', 'errands'
+    'lunch', 'lunch break', 'dinner', 'breakfast', 'brunch', 'coffee', 'coffee break',
+    'meal', 'eat', 'food', 'snack', 'catering', 'team lunch', 'team dinner',
+    'break', 'rest', 'pause', 'downtime', 'off', 'off day', 'nap', 'sleep', 'recovery',
+    'gym', 'workout', 'run', 'running', 'yoga', 'exercise', 'fitness', 'swimming',
+    'tennis', 'cycling', 'bike', 'sports', 'soccer', 'basketball', 'football',
+    'party', 'social', 'hangout', 'drinks', 'happy hour', 'meetup', 'friends',
+    'family time', 'date', 'birthday', 'celebration', 'game night', 'networking',
+    'personal', 'errands', 'appointment', 'doctor', 'dentist', 'therapy',
+    'shopping', 'haircut', 'vet', 'dmv',
+    'vacation', 'travel', 'trip', 'away', 'commute', 'travel day', 'sick day',
+    'pto', 'paternity', 'maternity', 'holiday', 'holidays',
+    'free', 'available', 'open', 'ooo', 'out of office', 'out of the office',
+    'buffer', 'optional', 'tbd', 'tentative', 'flexible',
+    'busy', 'blocked', 'hold', 'placeholder',
+    'movie', 'netflix', 'gaming', 'games',
+    'chore', 'laundry', 'cleaning', 'cooking'
   ],
   focusCalendarIds: [],
+  eventOverrides: {}, // { [eventId]: true (force focus) | false (force exclude) }
   
   // Blocking
   blocklist: [

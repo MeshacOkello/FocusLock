@@ -166,6 +166,7 @@ document.getElementById('clear-btn').addEventListener('click', async () => {
 });
 
 document.getElementById('onboarding-link').href = chrome.runtime.getURL('onboarding/onboarding.html');
+document.getElementById('verify-link').href = chrome.runtime.getURL('verify/verify.html');
 
 function updateDetectionSections(calendars, settings) {
   const mode = document.getElementById('detection-mode').value;

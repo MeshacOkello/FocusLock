@@ -1,5 +1,7 @@
 import { getSettings, saveSettings, setOnboardingComplete } from '../scripts/storage.js';
-import { getAuthTokenInteractive, fetchCalendars, fetchEvents, getFocusWindows, getNextFocusWindow } from '../scripts/calendar.js';
+import { getAuthTokenInteractive, fetchCalendars, fetchEvents, getFocusWindows, getNextFocusWindow, wouldBeFocusEventByRules } from '../scripts/calendar.js';
+
+let verifyOverrides = {};
 
 let currentStep = 1;
 
@@ -16,9 +18,87 @@ async function showStep(stepNum) {
     else if (stepIdx === stepNum) el.classList.add('active');
   });
 
-  if (stepNum === 5) {
+  if (stepNum === 4) {
+    await loadVerifyEvents();
+  }
+  if (stepNum === 6) {
     await updateNextFocusText();
   }
+}
+
+function formatEventTime(start, end) {
+  const s = new Date(start);
+  const e = new Date(end);
+  const dateStr = s.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+  const timeStr = s.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) + ' – ' + e.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  return `${dateStr}, ${timeStr}`;
+}
+
+async function loadVerifyEvents() {
+  const loading = document.getElementById('verify-loading');
+  const list = document.getElementById('verify-events-list');
+  const empty = document.getElementById('verify-empty');
+
+  const settings = await getSettings();
+  if (!settings.selectedCalendars?.length) {
+    loading.classList.add('hidden');
+    empty.classList.remove('hidden');
+    empty.textContent = 'Connect a calendar first.';
+    return;
+  }
+
+  try {
+    const token = await getAuthTokenInteractive();
+    const now = new Date();
+    const timeMax = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const events = await fetchEvents(token, settings.selectedCalendars, now, timeMax);
+
+    loading.classList.add('hidden');
+    verifyOverrides = { ...(settings.eventOverrides || {}) };
+
+    if (events.length === 0) {
+      empty.classList.remove('hidden');
+      return;
+    }
+
+    list.innerHTML = events.map((event) => {
+      const rulesFocus = wouldBeFocusEventByRules(event, settings);
+      const effectiveFocus = event.id in verifyOverrides ? verifyOverrides[event.id] : rulesFocus;
+
+      return `
+        <div class="verify-event-row ${effectiveFocus ? 'focus-event' : ''}" data-event-id="${event.id}">
+          <div class="verify-event-info">
+            <div class="verify-event-title">${(event.summary || '(No title)').replace(/</g, '&lt;')}</div>
+            <div class="verify-event-time">${formatEventTime(event.start, event.end)}</div>
+          </div>
+          <div class="verify-event-toggle toggle-switch ${effectiveFocus ? 'on' : ''}" data-event-id="${event.id}" role="button" tabindex="0"></div>
+        </div>
+      `;
+    }).join('');
+
+    list.classList.remove('hidden');
+
+    list.querySelectorAll('.toggle-switch').forEach((el) => {
+      el.addEventListener('click', () => {
+        const eventId = el.dataset.eventId;
+        const event = events.find((e) => e.id === eventId);
+        const current = eventId in verifyOverrides ? verifyOverrides[eventId] : wouldBeFocusEventByRules(event, settings);
+        verifyOverrides[eventId] = !current;
+        el.classList.toggle('on', verifyOverrides[eventId]);
+        el.closest('.verify-event-row').classList.toggle('focus-event', verifyOverrides[eventId]);
+      });
+    });
+  } catch {
+    loading.classList.add('hidden');
+    empty.classList.remove('hidden');
+    empty.textContent = 'Could not load events.';
+  }
+}
+
+async function saveVerifyOverrides() {
+  const settings = await getSettings();
+  settings.eventOverrides = { ...verifyOverrides };
+  await saveSettings(settings);
 }
 
 async function updateNextFocusText() {
@@ -60,6 +140,8 @@ document.querySelectorAll('[data-next]').forEach((btn) => {
       settings.focusDetectionMode = document.querySelector('input[name="detection"]:checked')?.value || 'all_events';
       await saveSettings(settings);
     } else if (currentStep === 4) {
+      await saveVerifyOverrides();
+    } else if (currentStep === 5) {
       const text = document.getElementById('blocklist-input').value;
       settings.blocklist = text.split(/[,\n]/).map((s) => s.trim().toLowerCase()).filter(Boolean);
       settings.youtubeBlocked = document.getElementById('youtube-toggle').checked;

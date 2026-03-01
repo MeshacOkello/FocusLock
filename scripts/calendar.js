@@ -65,6 +65,7 @@ export async function fetchEvents(token, calendarIds, timeMin, timeMax) {
       end: e.end?.dateTime || e.end?.date,
       isAllDay: !!e.start?.date,
       calendarId: calId,
+      transparency: e.transparency || 'opaque',
     }));
     
     allEvents.push(...events);
@@ -98,12 +99,21 @@ export function isFocusEvent(event, settings) {
     focusCalendarIds,
     focusDetectionMode,
     selectedCalendars,
+    eventOverrides = {},
   } = settings;
+
+  // User override takes precedence (true = force focus, false = force exclude)
+  if (event.id in eventOverrides) {
+    return !!eventOverrides[event.id];
+  }
 
   const title = (event.summary || '').toLowerCase();
 
   // All-day events: skip by default (avoid blocking all day)
   if (event.isAllDay) return false;
+
+  // Transparent events = "Show as available" in Google Calendar = not a blocking commitment
+  if (event.transparency === 'transparent') return false;
 
   // Negative keywords always exclude - even if event would otherwise qualify
   if (matchesNegativeKeyword(title, negativeKeywords)) return false;
@@ -130,6 +140,14 @@ export function isFocusEvent(event, settings) {
   }
 
   return false;
+}
+
+/**
+ * Same as isFocusEvent but ignores user overrides (rules-based only)
+ */
+export function wouldBeFocusEventByRules(event, settings) {
+  const { eventOverrides, ...settingsWithoutOverrides } = settings;
+  return isFocusEvent({ ...event }, { ...settings, eventOverrides: {} });
 }
 
 export function getFocusWindows(events, settings) {

@@ -20,6 +20,8 @@
       <div class="progress-step" data-step="4"></div>
       <div class="progress-line"></div>
       <div class="progress-step" data-step="5"></div>
+      <div class="progress-line"></div>
+      <div class="progress-step" data-step="6"></div>
     </div>
 
     <div id="step-1" class="step">
@@ -86,7 +88,8 @@
       </div>
       <div class="keywords-editor">
         <label>Exclude keywords (events with these = never focus)</label>
-        <textarea id="negative-keywords-input" rows="2">lunch, break, gym, dinner, party, social, free, vacation</textarea>
+        <textarea id="negative-keywords-input" rows="5">lunch, lunch break, dinner, breakfast, coffee, break, rest, gym, workout, yoga, party, social, hangout, friends, vacation, travel, free, available, ooo, out of office, personal, errands, appointment, doctor, dentist</textarea>
+        <p class="field-hint">Events marked "Show as available" in Google Calendar are excluded automatically.</p>
       </div>
       <div class="step-actions">
         <button class="btn-secondary" data-next="2">Back</button>
@@ -95,6 +98,22 @@
     </div>
 
     <div id="step-4" class="step hidden">
+      <div class="step-header">
+        <h1>Verify focus events</h1>
+        <p>We've flagged these upcoming events as focus times. Toggle any to add or remove.</p>
+      </div>
+      <div id="verify-events-container" class="verify-events-container">
+        <div id="verify-loading" class="verify-loading">Loading events...</div>
+        <div id="verify-events-list" class="verify-events-list hidden"></div>
+        <div id="verify-empty" class="verify-empty hidden">No upcoming events in the next 7 days.</div>
+      </div>
+      <div class="step-actions">
+        <button class="btn-secondary" data-next="3">Back</button>
+        <button class="btn-primary" data-next="5">Continue</button>
+      </div>
+    </div>
+
+    <div id="step-5" class="step hidden">
       <div class="step-header">
         <h1>Blocked sites</h1>
         <p>These sites will be blocked during focus times. You can change this anytime in Settings.</p>
@@ -112,12 +131,12 @@ facebook.com</textarea>
         </div>
       </div>
       <div class="step-actions">
-        <button class="btn-secondary" data-next="3">Back</button>
-        <button class="btn-primary" data-next="5">Continue</button>
+        <button class="btn-secondary" data-next="4">Back</button>
+        <button class="btn-primary" data-next="6">Continue</button>
       </div>
     </div>
 
-    <div id="step-5" class="step hidden">
+    <div id="step-6" class="step hidden">
       <div class="step-header">
         <h1>You're all set</h1>
         <p id="next-focus-text" class="next-focus-text">Next focus time: —</p>
