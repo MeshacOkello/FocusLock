@@ -219,7 +219,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     return true;
   }
   if (msg.type === 'REQUEST_OVERRIDE') {
-    requestOverride(msg.durationMinutes, msg.reason).then(sendResponse);
+    requestOverride(msg.durationMinutes, msg.reason, msg.domain).then(sendResponse);
     return true;
   }
   if (msg.type === 'SYNC_NOW') {
@@ -303,7 +303,7 @@ async function endManualLockin() {
   return { ok: true };
 }
 
-async function requestOverride(durationMinutes, reason) {
+async function requestOverride(durationMinutes, reason, domain) {
   const state = await getState();
   const settings = await getSettings();
 
@@ -311,16 +311,28 @@ async function requestOverride(durationMinutes, reason) {
     return { ok: false, error: 'Not in focus mode' };
   }
 
-  const maxOverrides = settings.maxOverridesPerSession ?? 2;
-  if (state.overridesUsedThisSession >= maxOverrides) {
-    return { ok: false, error: 'Max overrides reached for this session' };
+  if (durationMinutes > 5) {
+    return { ok: false, error: 'Max override duration is 5 minutes' };
+  }
+
+  const stats = await getStats();
+  const today = new Date().toISOString().slice(0, 10);
+  const todayOverrides = (stats.overrides || []).filter((o) => new Date(o.timestamp).toISOString().slice(0, 10) === today);
+  const overridesForDomain = todayOverrides.filter((o) => (o.domain || 'unknown').toLowerCase() === (domain || 'unknown').toLowerCase());
+
+  if (overridesForDomain.length >= 1) {
+    return { ok: false, error: `You've already used your override for this site today (max 1 per site per day)` };
+  }
+
+  if (todayOverrides.length >= 3) {
+    return { ok: false, error: 'Max 3 overrides per day reached' };
   }
 
   if (settings.requireOverrideReason && (!reason || reason.length < (settings.minReasonLength || 10))) {
     return { ok: false, error: 'Reason required (min 10 characters)' };
   }
 
-  await addOverride(durationMinutes, reason || '');
+  await addOverride(durationMinutes, reason || '', domain);
 
   const overrideEnd = Date.now() + durationMinutes * 60 * 1000;
 
@@ -331,7 +343,6 @@ async function requestOverride(durationMinutes, reason) {
     ...state,
     overrideActive: true,
     overrideEndsAt: overrideEnd,
-    overridesUsedThisSession: (state.overridesUsedThisSession || 0) + 1,
   });
 
   return { ok: true, end: overrideEnd };

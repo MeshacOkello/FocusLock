@@ -1,131 +1,154 @@
 .popup {
-  width: 340px;
-  min-height: 260px;
-  padding: 24px;
-  background: var(--bg-primary);
+  width: 360px;
+  min-height: 280px;
+  padding: 28px;
+  background: var(--bg-gradient);
 }
 
 .popup-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .logo-mark {
-  width: 28px;
-  height: 28px;
-  background: var(--accent);
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
   border-radius: var(--radius-sm);
-  opacity: 0.9;
+  box-shadow: 0 4px 12px var(--accent-glow);
 }
 
 .logo h1 {
   margin: 0;
-  font-size: 17px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .status-badge {
   font-size: 11px;
   font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
 .status-on {
-  background: var(--success-muted);
+  background: var(--success-soft);
   color: var(--success);
 }
 
 .status-off {
-  background: var(--bg-elevated);
+  background: var(--glass);
   color: var(--text-muted);
+  border: 1px solid var(--glass-border);
 }
 
 .status-override {
-  background: var(--warning-muted);
+  background: var(--warning-soft);
   color: var(--warning);
 }
 
 .focus-info {
-  background: var(--bg-secondary);
+  position: relative;
+  background: var(--glass);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 16px;
-  border: 1px solid var(--border);
+  padding: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.focus-info::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 50%, transparent 100%);
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 .focus-info-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.focus-info .event-name,
+.focus-info .event-end {
+  position: relative;
+  z-index: 1;
 }
 
 .focus-label {
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
 }
 
 .focus-info .event-name {
   font-weight: 600;
-  font-size: 15px;
-  margin-bottom: 4px;
+  font-size: 17px;
+  margin-bottom: 6px;
 }
 
 .focus-info .event-end {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-secondary);
 }
 
 .next-focus {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-secondary);
-  margin-bottom: 16px;
-  padding: 12px 0;
+  margin-bottom: 20px;
+  padding: 14px 0;
 }
 
 .next-focus .label {
   color: var(--text-muted);
-  margin-right: 4px;
+  margin-right: 6px;
 }
 
 .calendar-stale {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
+  gap: 10px;
+  font-size: 13px;
   color: var(--warning);
-  margin-bottom: 16px;
-  padding: 10px 12px;
-  background: var(--warning-muted);
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: var(--warning-soft);
   border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
 }
 
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .action-row {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .action-row .btn-full {
@@ -138,14 +161,14 @@
 }
 
 .setup-prompt {
-  padding: 20px 0;
+  padding: 24px 0;
 }
 
 .setup-prompt p {
   color: var(--text-secondary);
-  font-size: 14px;
-  line-height: 1.6;
-  margin: 0 0 20px;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0 0 24px;
 }
 
 .hidden {

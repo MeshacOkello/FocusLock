@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const sizes = [16, 48, 128];
-const color = { r: 13, g: 148, b: 136 };
+const color = { r: 99, g: 102, b: 241 };
 
 async function generate() {
   const iconsDir = path.join(__dirname, '..', 'icons');

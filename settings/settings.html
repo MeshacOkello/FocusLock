@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FocusLock — Settings</title>
   <link rel="stylesheet" href="../shared/styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="settings.css">
 </head>
 <body>
@@ -77,14 +77,7 @@
       <section class="section">
         <h2>Overrides</h2>
         <div class="section-content">
-          <div class="form-group">
-            <label>Max overrides per focus session</label>
-            <input type="number" id="max-overrides" min="1" max="10" value="2">
-          </div>
-          <div class="form-group">
-            <label>Max override duration (minutes)</label>
-            <input type="number" id="max-override-duration" min="1" max="30" value="10">
-          </div>
+          <p class="privacy-note">Limits: 1 override per site per day, 3 total per day, max 5 minutes each.</p>
           <label class="checkbox-row"><input type="checkbox" id="require-reason" checked> Require reason (min 10 chars)</label>
           <label class="checkbox-row"><input type="checkbox" id="override-delay"> Delay override by 30 seconds</label>
         </div>

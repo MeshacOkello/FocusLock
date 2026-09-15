@@ -3,38 +3,38 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px 24px;
-  background: var(--bg-primary);
+  padding: 40px 28px;
+  background: var(--bg-gradient);
 }
 
 .override-content {
-  max-width: 380px;
+  max-width: 400px;
   width: 100%;
 }
 
 .override-content h1 {
-  font-size: 22px;
-  font-weight: 600;
-  margin: 0 0 8px;
-  letter-spacing: -0.02em;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  letter-spacing: -0.03em;
 }
 
 .subtitle {
   color: var(--text-secondary);
-  font-size: 14px;
-  margin: 0 0 28px;
-  line-height: 1.5;
+  font-size: 16px;
+  margin: 0 0 32px;
+  line-height: 1.6;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .form-group label {
   display: block;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: var(--text-secondary);
 }
 
@@ -50,36 +50,36 @@
 
 .form-group textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 88px;
 }
 
 .error {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--error);
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 .delay-info {
-  background: var(--warning-muted);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: var(--warning-soft);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
-  padding: 14px;
-  margin-bottom: 20px;
-  font-size: 14px;
+  padding: 16px;
+  margin-bottom: 24px;
+  font-size: 15px;
   color: var(--warning);
 }
 
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .btn-full {
   width: 100%;
   justify-content: center;
-  padding: 14px;
+  padding: 16px;
 }
 
 .hidden {

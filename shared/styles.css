@@ -1,29 +1,43 @@
-/* FocusLock - Design system */
+/* FocusLock - True Liquid Glass design system
+   Translucent, lensing, content-shines-through aesthetic (Apple Liquid Glass inspired) */
 :root {
-  --bg-primary: #09090b;
-  --bg-secondary: #18181b;
-  --bg-elevated: #27272a;
-  --bg-hover: #3f3f46;
-  --text-primary: #fafafa;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --accent: #0d9488;
-  --accent-hover: #0f766e;
-  --accent-muted: rgba(13, 148, 136, 0.15);
-  --success: #10b981;
-  --success-muted: rgba(16, 185, 129, 0.15);
-  --warning: #f59e0b;
-  --warning-muted: rgba(245, 158, 11, 0.15);
-  --error: #ef4444;
-  --error-muted: rgba(239, 68, 68, 0.15);
-  --border: #27272a;
-  --border-subtle: #3f3f46;
-  --radius: 10px;
-  --radius-sm: 6px;
-  --radius-lg: 14px;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Rich background - color variation so translucency is visible through glass */
+  --bg-base: #0a0e17;
+  --bg-primary: #0d1220;
+  --bg-gradient: 
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(59, 130, 234, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 100% 100%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse 60% 80% at 0% 80%, rgba(34, 211, 238, 0.06) 0%, transparent 40%),
+    linear-gradient(165deg, #0d1220 0%, #0f172a 25%, #0a0e17 50%, #0f172a 75%, #070a12 100%);
+  
+  /* Highly translucent glass - content shows through (0.04-0.08 for dark theme) */
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-hover: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.18);
+  --glass-blur: 20px;
+  --glass-saturate: 180%;
+  
+  --text-primary: #f5f5f7;
+  --text-secondary: #a8b2c1;
+  --text-muted: #6b7280;
+  --accent: #5e9cf6;
+  --accent-hover: #3b82ea;
+  --accent-soft: rgba(94, 156, 246, 0.2);
+  --accent-glow: rgba(94, 156, 246, 0.12);
+  --success: #34d399;
+  --success-soft: rgba(52, 211, 153, 0.15);
+  --warning: #fbbf24;
+  --warning-soft: rgba(251, 191, 36, 0.15);
+  --error: #f87171;
+  --error-soft: rgba(248, 113, 113, 0.15);
+  --bg-elevated: rgba(255, 255, 255, 0.03);
+  --radius: 16px;
+  --radius-sm: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -32,12 +46,15 @@
 
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: var(--font-sans);
-  background: var(--bg-primary);
+  background: var(--bg-gradient);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
-  font-size: 14px;
-  line-height: 1.5;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
 }
 
 button {
@@ -45,58 +62,69 @@ button {
   cursor: pointer;
   border: none;
   border-radius: var(--radius-sm);
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition: all var(--transition);
 }
 
 .btn-primary {
-  background: var(--accent);
+  background: linear-gradient(180deg, rgba(94, 156, 246, 0.85) 0%, rgba(59, 130, 234, 0.9) 100%);
   color: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 24px var(--accent-glow);
 }
 
 .btn-primary:hover {
-  background: var(--accent-hover);
+  background: linear-gradient(180deg, rgba(94, 156, 246, 0.95) 0%, rgba(59, 130, 234, 1) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px var(--accent-glow);
 }
 
 .btn-primary:active {
-  transform: scale(0.98);
+  transform: translateY(0);
 }
 
 .btn-secondary {
-  background: var(--bg-elevated);
+  background: var(--glass);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   color: var(--text-primary);
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-weight: 500;
-  font-size: 14px;
-  border: 1px solid var(--border);
+  font-size: 15px;
+  border: 1px solid var(--glass-border);
 }
 
 .btn-secondary:hover {
-  background: var(--bg-hover);
-  border-color: var(--border-subtle);
+  background: var(--glass-hover);
+  border-color: var(--glass-highlight);
 }
 
 .btn-ghost {
   background: transparent;
   color: var(--text-secondary);
+  padding: 10px 16px;
 }
 
 .btn-ghost:hover {
   color: var(--text-primary);
-  background: var(--bg-elevated);
+  background: var(--glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 
 input, select, textarea {
   font-family: inherit;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
+  background: var(--glass);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
-  padding: 10px 14px;
-  font-size: 14px;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  padding: 12px 16px;
+  font-size: 15px;
+  transition: all var(--transition);
 }
 
 input::placeholder,
@@ -106,8 +134,29 @@ textarea::placeholder {
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent-muted);
+  border-color: var(--glass-highlight);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Liquid glass card - translucent with glossy overlay */
+.glass-card {
+  position: relative;
+  background: var(--glass);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* Glossy sheen overlay - mimics reflective glass surface */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 50%, transparent 100%);
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 .status-dot {
@@ -116,12 +165,31 @@ input:focus, select:focus, textarea:focus {
   border-radius: 50%;
   background: var(--success);
   flex-shrink: 0;
+  box-shadow: 0 0 12px var(--success-soft);
 }
 
 .status-dot.warning {
   background: var(--warning);
+  box-shadow: 0 0 12px var(--warning-soft);
 }
 
 .status-dot.muted {
   background: var(--text-muted);
+}
+
+/* Fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-card,
+  .focus-info,
+  .event-card,
+  .section-content,
+  .stat-card,
+  .streak-card,
+  .top-sites,
+  .option-card,
+  .btn-secondary,
+  .btn-ghost:hover,
+  input, select, textarea {
+    background: rgba(15, 23, 42, 0.92);
+  }
 }

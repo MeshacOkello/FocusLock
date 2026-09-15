@@ -51,9 +51,7 @@ const DEFAULT_SETTINGS = {
   discordBlocked: false,
   whitelist: ['docs.google.com'],
   
-  // Overrides
-  maxOverridesPerSession: 2,
-  maxOverrideDuration: 10,
+  // Overrides (limits: 1 per site/day, 3 total/day, 5 min max)
   requireOverrideReason: true,
   minReasonLength: 10,
   overrideDelaySeconds: 0,
@@ -122,10 +120,10 @@ export async function addBlockAttempt(domain) {
   await saveStats(stats);
 }
 
-export async function addOverride(duration, reason) {
+export async function addOverride(duration, reason, domain) {
   const stats = await getStats();
   stats.overrides = stats.overrides || [];
-  stats.overrides.push({ duration, reason, timestamp: Date.now() });
+  stats.overrides.push({ duration, reason, domain: domain || 'unknown', timestamp: Date.now() });
   if (stats.overrides.length > 500) {
     stats.overrides = stats.overrides.slice(-500);
   }

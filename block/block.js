@@ -54,6 +54,7 @@ document.getElementById('override-btn').addEventListener('click', () => {
     returnUrl: blockedUrl || document.referrer || 'https://www.google.com',
     event: eventName,
     end: endParam,
+    domain: domain,
   });
   window.location.href = `${overrideUrl}?${searchParams.toString()}`;
 });

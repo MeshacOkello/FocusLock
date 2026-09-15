@@ -11,8 +11,6 @@ async function load() {
   document.getElementById('youtube').checked = settings.youtubeBlocked;
   document.getElementById('discord').checked = settings.discordBlocked;
   document.getElementById('detection-mode').value = settings.focusDetectionMode || 'all_events';
-  document.getElementById('max-overrides').value = settings.maxOverridesPerSession ?? 2;
-  document.getElementById('max-override-duration').value = settings.maxOverrideDuration ?? 10;
   document.getElementById('require-reason').checked = settings.requireOverrideReason !== false;
   document.getElementById('override-delay').checked = (settings.overrideDelaySeconds || 0) >= 30;
 
@@ -102,18 +100,6 @@ document.getElementById('youtube').addEventListener('change', async (e) => {
 document.getElementById('discord').addEventListener('change', async (e) => {
   const s = await getSettings();
   s.discordBlocked = e.target.checked;
-  await saveSettings(s);
-});
-
-document.getElementById('max-overrides').addEventListener('change', async () => {
-  const s = await getSettings();
-  s.maxOverridesPerSession = parseInt(document.getElementById('max-overrides').value, 10) || 2;
-  await saveSettings(s);
-});
-
-document.getElementById('max-override-duration').addEventListener('change', async () => {
-  const s = await getSettings();
-  s.maxOverrideDuration = parseInt(document.getElementById('max-override-duration').value, 10) || 10;
   await saveSettings(s);
 });
 

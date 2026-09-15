@@ -2,6 +2,7 @@ import { getSettings } from '../scripts/storage.js';
 
 const params = new URLSearchParams(window.location.search);
 const returnUrl = params.get('returnUrl') || 'https://www.google.com';
+const domain = params.get('domain') || 'unknown';
 
 const form = document.getElementById('override-form');
 const durationSelect = document.getElementById('duration');
@@ -17,18 +18,12 @@ cancelBtn.addEventListener('click', () => {
   blockParams.set('event', params.get('event') || 'Focus Mode');
   blockParams.set('end', params.get('end') || '');
   blockParams.set('url', params.get('returnUrl') || '');
+  blockParams.set('domain', domain);
   window.location.href = chrome.runtime.getURL('block/block.html') + '?' + blockParams.toString();
 });
 
 async function loadSettings() {
   const settings = await getSettings();
-  const maxDuration = settings.maxOverrideDuration ?? 10;
-  const durations = [1, 5, 10].filter((d) => d <= maxDuration);
-  if (durations.length === 0) durations.push(5);
-
-  durationSelect.innerHTML = durations
-    .map((d) => `<option value="${d}">${d} minute${d > 1 ? 's' : ''}</option>`)
-    .join('');
 
   if (settings.overrideDelaySeconds > 0) {
     delayInfo.classList.remove('hidden');
@@ -67,12 +62,13 @@ form.addEventListener('submit', async (e) => {
     type: 'REQUEST_OVERRIDE',
     durationMinutes: duration,
     reason,
+    domain,
   });
 
   if (res?.ok) {
     window.location.href = returnUrl;
   } else {
-    alert(res?.error || 'Could not grant override. You may have reached the max overrides for this session.');
+    alert(res?.error || 'Could not grant override.');
   }
 });
 
